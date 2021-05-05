@@ -1,7 +1,7 @@
 package com.projectx.spring.hands.on.controller;
 
-import com.projectx.springjpa.model.User;
-import com.projectx.springjpa.repository.UserRepository;
+import com.projectx.spring.hands.on.model.User;
+import com.projectx.spring.hands.on.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
