@@ -1,4 +1,4 @@
-package com.projectx.springjpa.repository;
+package com.projectx.spring.hands.on.repository;
 
 import com.projectx.springjpa.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
