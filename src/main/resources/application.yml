@@ -1,0 +1,6 @@
+spring:
+  profiles: int
+
+server:
+  port: 8083
+

@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Local" type="Application" factoryName="Application">
+    <envs>
+      <env name="spring.profiles.active" value="local" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.projectx.spring.hands.on.SpringHandsOnApplication" />
+    <module name="spring-hands-on" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.projectx.spring.hands.on.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
