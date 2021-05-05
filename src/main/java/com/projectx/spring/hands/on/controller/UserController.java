@@ -1,4 +1,4 @@
-package com.projectx.springjpa.controller;
+package com.projectx.spring.hands.on.controller;
 
 import com.projectx.springjpa.model.User;
 import com.projectx.springjpa.repository.UserRepository;

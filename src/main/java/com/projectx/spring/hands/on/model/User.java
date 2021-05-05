@@ -1,4 +1,4 @@
-package com.projectx.springjpa.model;
+package com.projectx.spring.hands.on.model;
 
 import lombok.Data;
 
