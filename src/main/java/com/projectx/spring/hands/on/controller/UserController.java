@@ -2,6 +2,7 @@ package com.projectx.spring.hands.on.controller;
 
 import com.projectx.spring.hands.on.model.User;
 import com.projectx.spring.hands.on.repository.UserRepository;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Api(value = "", description = "Adds and retrieves the user")
 public class UserController {
 
   private final UserRepository userRepository;
