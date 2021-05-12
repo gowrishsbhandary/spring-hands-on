@@ -1,4 +1,4 @@
-package com.projectx.spring.hands.on.configuration;
+package com.projectx.spring.hands.on.configuration.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
