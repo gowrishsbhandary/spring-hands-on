@@ -25,13 +25,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
-            .authorizeRequests()
-            .antMatchers("/user/load", "/user/getAll").hasRole("ADMIN")
-            .antMatchers("/user/register", "/user/{name}").hasRole("USER")
-            .anyRequest()
-            .fullyAuthenticated()
-            .and()
-            .httpBasic();
+        .authorizeRequests()
+        .antMatchers("/h2-console/**")
+        .permitAll()
+        .antMatchers("/user/load", "/user/getAll")
+        .hasRole("ADMIN")
+        .antMatchers("/user/register", "/user/{name}")
+        .hasRole("USER")
+        .anyRequest()
+        .fullyAuthenticated()
+        .and()
+        .httpBasic();
     httpSecurity.csrf().disable();
+    httpSecurity.headers().frameOptions().disable();
   }
 }
