@@ -1,4 +1,4 @@
-name,designation,salary
-Peter,001,10000
-Rob,002,20000
-James,003,15000
+email,userName,password,firstName,lastName,active,designation,salary
+peter@projectx.com,PeterParker,user,Peter,Parker,0,001,10000
+rob@projectx.com,RobRock,user,Rob,Rock,1,002,20000
+james@projectx.com,JamesFall,user,James,Fall,1,003,15000

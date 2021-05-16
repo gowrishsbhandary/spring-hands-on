@@ -19,12 +19,13 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
 @Slf4j
-@Api(value = "", description = "Adds and retrieves the user")
+@Api(value = "", tags = "Adds and retrieves the user")
 public class UserController {
 
   private final UserRepository userRepository;
@@ -43,16 +44,16 @@ public class UserController {
     return userRepository.findAll();
   }
 
-  @ApiOperation(value = "Returns the user for the given name")
+  @ApiOperation(value = "Returns the user for the given user name")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "successful"),
         @ApiResponse(code = 500, message = "Internal error"),
         @ApiResponse(code = 404, message = "Not found")
       })
-  @GetMapping(value = "/{name}")
-  public User getUserByName(@PathVariable String name) {
-    return userRepository.findByName(name);
+  @GetMapping(value = "/{userName}")
+  public Optional<User> getUserByName(@PathVariable String userName) {
+    return userRepository.findByUserName(userName);
   }
 
   @ApiOperation(value = "Add the user to the system")
@@ -63,10 +64,10 @@ public class UserController {
         @ApiResponse(code = 404, message = "Not found")
       })
   @PostMapping(value = "/register")
-  public User registerUser(@RequestBody User user) {
+  public Optional<User> registerUser(@RequestBody User user) {
     user.setCreateTime(LocalDateTime.now());
     userRepository.save(user);
-    return userRepository.findByName(user.getName());
+    return userRepository.findByUserName(user.getUserName());
   }
 
   @ApiOperation(value = "Load users to the system")
