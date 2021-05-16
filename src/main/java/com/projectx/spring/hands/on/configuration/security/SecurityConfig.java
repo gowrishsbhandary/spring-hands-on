@@ -3,12 +3,14 @@ package com.projectx.spring.hands.on.configuration.security;
 import com.projectx.spring.hands.on.repository.UserRepository;
 import com.projectx.spring.hands.on.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
@@ -16,6 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  private static final String[] AUTH_WHITELIST = {
+    "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs", "/h2-console/**", "/user/register"
+  };
+  private static final String[] AUTH_ADMIN = {"/user/load", "/user/getAll"};
+  private static final String[] AUTH_USER = {"/user/{userName}"};
+  private static final String ROLE_ADMIN = "ADMIN";
+  private static final String ROLE_USER = "USER";
 
   private final CustomUserDetailsService customUserDetailsService;
 
@@ -25,30 +35,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(customUserDetailsService).passwordEncoder(getPasswordEncoder());
   }
 
-  private PasswordEncoder getPasswordEncoder() {
-    return new PasswordEncoder() {
-      @Override
-      public String encode(CharSequence charSequence) {
-        return charSequence.toString();
-      }
-
-      @Override
-      public boolean matches(CharSequence charSequence, String s) {
-        return true;
-      }
-    };
+  @Bean
+  public PasswordEncoder getPasswordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
         .authorizeRequests()
-        .antMatchers("/h2-console/**")
+        .antMatchers(AUTH_WHITELIST)
         .permitAll()
-        .antMatchers("/user/load", "/user/getAll")
-        .hasRole("ADMIN")
-        .antMatchers("/user/register", "/user/{userName}")
-        .hasRole("USER")
+        .antMatchers(AUTH_ADMIN)
+        .hasRole(ROLE_ADMIN)
+        .antMatchers(AUTH_USER)
+        .hasRole(ROLE_USER)
         .anyRequest()
         .fullyAuthenticated()
         .and()
